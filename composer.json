@@ -1,0 +1,25 @@
+{
+    "name": "three/fileserver",
+    "description": "a laravel package to manipulate files on mongodb gridfs",
+    "keywords": ["laravel", "mongodb", "gridfs", "file server"],
+    "authors": [
+        {
+            "name": "Sunpeng",
+            "email": "sunnycamel@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "jenssegers/mongodb": "~2.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Three\\Fileserver\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
