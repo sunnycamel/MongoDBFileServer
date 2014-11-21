@@ -1,6 +1,7 @@
 <?php namespace Three\Fileserver;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class FileserverServiceProvider extends ServiceProvider {
 
@@ -41,7 +42,7 @@ class FileserverServiceProvider extends ServiceProvider {
                   });
              $this->app->booting(function() {
                        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-                       $loader->alias('FileServer', 'Three\FileServer\Facades\FileServer');
+                       $loader->alias('FileServer', 'Three\Fileserver\Facades\FileServer');
                   });
 	}
 

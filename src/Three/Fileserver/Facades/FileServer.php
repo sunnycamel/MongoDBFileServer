@@ -1,4 +1,4 @@
-<?php namespace Three\Baidupush\Facades;
+<?php namespace Three\Fileserver\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
