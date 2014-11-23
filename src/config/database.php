@@ -5,9 +5,9 @@ return array(
                'driver'   => 'mongodb',
                'host'     => 'localhost',
                'port'     => 27017,
-               'username' => 'username',
-               'password' => 'password',
-               'database' => 'database'
+               /* 'username' => 'root', */
+               /* 'password' => 'quick', */
+               'database' => 'fileserver'
                ),
 
           /* 'fileserver' => array( */

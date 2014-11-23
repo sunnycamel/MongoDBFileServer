@@ -1,4 +1,6 @@
 <?php
-Route::get('/fileserver/{id}', function($id){
-          FileServer::get($id);
+Route::get('/fileserver/test', function(){
+          $id = FileServer::put('123456789', 'a.txt', 'txt');
+          $ret = FileServer::getFileType($id);
+          dd($ret);
      });
