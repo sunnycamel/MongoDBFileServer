@@ -57,7 +57,7 @@ class FileServer {
           $id = $this->gridfs->storeBytes($file_data, array(
                                          'filename'    => $file_name,
                                          'filetype'    => $file_type,
-                                         'keyword'     => $keyword,
+                                         'keywords'     => $keyword,
                                          'description' => $description,
                                          )
                );
@@ -79,10 +79,20 @@ class FileServer {
           return FALSE;
      }
 
-     public function search($keyword)
+     public function search($keywords)
      {
-          //search in keywords and description in gridfs' files collection
+          //search in keywords and description fields in gridfs' files collection
+          $ret = array();
+          foreach($keywords as $keyword) {
+               $finds = $this->db->collection('fs.files')
+                    ->where('keywords', 'like', '%' . $keyword . '%')
+                    ->orWhere('description', 'like', '%' . $keyword . '%')->get();
+               foreach($finds as $find) {
+                    $ret[]= $find['_id']->{'$id'};
+               }
+          }
 
+          return $ret;
      }
 
      private function getMetaData($file_id)
