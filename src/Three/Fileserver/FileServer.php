@@ -52,11 +52,13 @@ class FileServer {
           return NULL;
      }
 
-     public function put($file_data, $file_name, $file_type)
+     public function put($file_data, $file_name, $file_type, $keyword, $description)
      {
           $id = $this->gridfs->storeBytes($file_data, array(
-                                         'filename'  => $file_name,
-                                         'filetype' => $file_type,
+                                         'filename'    => $file_name,
+                                         'filetype'    => $file_type,
+                                         'keyword'     => $keyword,
+                                         'description' => $description,
                                          )
                );
           
@@ -67,9 +69,19 @@ class FileServer {
           return NULL;
      }
 
-     //TODO:need to implement as request
+     public function delete($file_id)
+     {
+          $ret = $this->gridfs->remove(array('_id' => new \MongoId($file_id)));
+          if($ret['n'] == 1) {
+               return TRUE;
+          }
+          
+          return FALSE;
+     }
+
      public function search($keyword)
      {
+          //search in keywords and description in gridfs' files collection
 
      }
 
