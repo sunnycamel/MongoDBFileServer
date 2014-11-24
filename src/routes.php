@@ -4,3 +4,5 @@ Route::get('/fileserver/test', function(){
           $ret = FileServer::search(array('test'));
           dd($ret);
      });
+
+Route::resource('fileserver', 'Three\Fileserver\FileserverController');
