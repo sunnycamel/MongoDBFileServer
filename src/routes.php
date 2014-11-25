@@ -1,8 +1,5 @@
 <?php
-Route::get('/fileserver/test', function(){
-          $id = FileServer::put('123456789', 'a.txt', 'txt', 'test file', 'a test file');
-          $ret = FileServer::search(array('test'));
-          dd($ret);
-     });
+
+Route::get('/fileserver/image/{id}', 'Three\Fileserver\Controllers\FileserverController@image');
 
 Route::resource('fileserver', 'Three\Fileserver\Controllers\FileserverController');

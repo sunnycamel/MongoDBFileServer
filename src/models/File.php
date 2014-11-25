@@ -30,7 +30,7 @@ class File extends Eloquent {
                                          'description' => $this->description,
                                          )
                );
-          
+
           if($id) {
                return TRUE;
           }

@@ -6,6 +6,7 @@ use Redirect;
 use Input;
 use Validator;
 use Session;
+use Response;
 use Three\Fileserver\Models\File;
 
 class FileserverController extends Controller{
@@ -35,11 +36,11 @@ class FileserverController extends Controller{
                    ->withInput();
          } else {
               $file = new File;
-              $file->filename    = Input::get('file')->getClientOriginalName();
+              $file->filename    = Input::file('file')->getClientOriginalName();
               $file->filetype    = Input::get('filetype')==0 ? 'image' : 'file';
               $file->keywords    = Input::get('keywords');
               $file->description = Input::get('description');
-              $file->fileData    = \File::get(Input::get('file')->getRealPath());
+              $file->filedata    = \File::get(Input::file('file')->getRealPath());
 
               $ret = $file->save();
               if($ret) {
@@ -55,7 +56,9 @@ class FileserverController extends Controller{
 
     public function show($id)
     {
+         $file = File::find($id);
 
+         return View::make('fileserver::show')->with('file', $file);
     }
     
     public function edit($id)
@@ -70,12 +73,20 @@ class FileserverController extends Controller{
 
     public function destroy($id)
     {
-         $file = FileServer::find($id);
+         $file = File::find($id);
+
          if($file) {
               $file->delete();
          }
  
          return Redirect::to('fileserver');
+    }
+
+    public function image($id)
+    {
+         $image = File::find($id)->getFileData();
+         
+         return Response::make($image, 200, array('content-type' => 'image/jpg'));
     }
     
 } 

@@ -44,6 +44,9 @@
 	Form::close()
 	}}
       </td>
+      <td>
+	<a class="btn btn-small btn-success" href="{{ URL::to('/fileserver/' . $file->_id) }}">Show</a>
+      </td>
     </tr>
     @endforeach
   </tbody>
