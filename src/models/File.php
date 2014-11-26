@@ -22,17 +22,21 @@ class File extends Eloquent {
 
      public function save(array $options = array())
      {
-          $gridfs = DB::connection('fileserver')->getGridFs();
-          $id = $gridfs->storeBytes($this->filedata, array(
-                                         'filename'    => $this->filename,
-                                         'filetype'    => $this->filetype,
-                                         'keywords'    => $this->keywords,
-                                         'description' => $this->description,
-                                         )
-               );
-
-          if($id) {
-               return TRUE;
+          if($options['update']) {
+               return parent::save();
+          }
+          else {
+               $gridfs = DB::connection('fileserver')->getGridFs();
+               $id = $gridfs->storeBytes($this->filedata, array(
+                                              'filename'    => $this->filename,
+                                              'filetype'    => $this->filetype,
+                                              'keywords'    => $this->keywords,
+                                              'description' => $this->description,
+                                              )
+                    );
+               if($id) {
+                    return TRUE;
+               }
           }
 
           return FALSE;

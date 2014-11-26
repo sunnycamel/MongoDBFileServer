@@ -32,7 +32,7 @@
       <td>{{ $file->description }}</td>
       <td>
 	{{
-	Form::open(array('url' => '/fileserver/' . $file->_id, 'class'=>'pull-right'))
+	Form::open(array('url' => '/fileserver/' . $file->_id))
 	}}
 	{{
 	Form::hidden('_method', 'DELETE')
@@ -46,6 +46,9 @@
       </td>
       <td>
 	<a class="btn btn-small btn-success" href="{{ URL::to('/fileserver/' . $file->_id) }}">Show</a>
+      </td>
+      <td>
+	<a class="btn btn-small btn-success pull-right" href="{{ URL::to('/fileserver/' . $file->_id . '/edit') }}">Edit</a>
       </td>
     </tr>
     @endforeach

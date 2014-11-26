@@ -22,13 +22,12 @@
       Description: {{ $file->description }}
     </td>
     <td>
-@if($file->filetype == 'image')
+      @if($file->filetype == 'image')
       <img width='300' src='/fileserver/image/{{ $file->_id }}'></img>
-@else
+      @else
       {{ substr($file->getFileData(), 0, 20) . '...' }}
-@endif
+      @endif
     </td>
-
   </tr>
 </table>
 

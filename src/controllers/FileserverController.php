@@ -63,12 +63,38 @@ class FileserverController extends Controller{
     
     public function edit($id)
     {
-
+         $file = File::find($id);
+         
+         return View::make('fileserver::edit')->with('file', $file);
     }
 
     public function update($id)
     {
+         $rules = array(
+              'filetype' => 'required',
+              );
+         $validator = Validator::make(Input::all(), $rules);
 
+         if ($validator->fails()) {
+              return Redirect::to('/fileserver/' . '$id' .'/edit')
+                   ->withErrors($validator)
+                   ->withInput();
+         } else {
+              $file = File::find($id);
+              $file->filetype    = Input::get('filetype')==0 ? 'image' : 'file';
+              $file->keywords    = Input::get('keywords');
+              $file->description = Input::get('description');
+
+              $ret = $file->save(array('update' => TRUE));
+              if($ret) {
+                   Session::flash('message', 'Successfully stored file!');
+              }
+              else {
+                   Session::flash('message', 'Failed to stor file!');
+              }
+
+              return Redirect::to('/fileserver');
+         }
     }
 
     public function destroy($id)
@@ -86,7 +112,7 @@ class FileserverController extends Controller{
     {
          $image = File::find($id)->getFileData();
          
-         return Response::make($image, 200, array('content-type' => 'image/jpg'));
+         return Response::make($image, 200, array('content-type' => 'image/*'));
     }
     
 } 
