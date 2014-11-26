@@ -13,7 +13,32 @@ class FileserverController extends Controller{
 
     public function index()
     {
-         $files = File::all();
+         $keywords = Input::get('keywords');
+         if($keywords) {
+              $ret = array_map('trim', explode(" ", $keywords));
+              $first = TRUE;
+              foreach($ret as $keyword) {
+                   if($first) {
+                        $temp = File::where('keywords', 'like', '%' . $keyword . '%')
+                             ->orWhere('description', 'like', '%' . $keyword . '%');
+                        $first = FALSE;
+                   }
+                   else {
+                        $temp = $temp->orWhere('keywords', 'like', '%' . $keyword . '%')
+                             ->orWhere('description', 'like', '%' . $keyword . '%');
+                   }
+              }
+              $files = $temp->paginate(3);
+         }
+         else {
+              $files = File::paginate(3);
+         }
+
+         $files->appends(
+               array(
+                    'keywords'  => Input::get('keywords'),
+                    ));
+
          return View::make('fileserver::index')->with('files', $files);
     }
 

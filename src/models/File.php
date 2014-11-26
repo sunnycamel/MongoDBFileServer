@@ -53,19 +53,4 @@ class File extends Eloquent {
           return FALSE;
      }
 
-     public static function search($keywords, $start = NULL, $end = NULL)
-     {
-          //search in keywords and description fields in gridfs' files collection
-          $ret = array();
-          foreach($keywords as $keyword) {
-               $finds = FileServer::where('keywords', 'like', '%' . $keyword . '%')
-                    ->orWhere('description', 'like', '%' . $keyword . '%')->get();//TODO: need to limit the result by start and end
-               foreach($finds as $find) {
-                    $ret[] = $find['_id']->{'$id'};
-               }
-          }
-
-          return $ret;
-     }
-
 }

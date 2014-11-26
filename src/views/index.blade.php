@@ -12,6 +12,17 @@
   @endif
   {{ HTML::ul($errors->all()) }}
 
+{{ Form::open(array('url' => '/fileserver', 'method' => 'get', 'class'=>'form-inline')) }}
+  <div class="form-group">
+     <div class="input-group">
+     <input type="text" name='keywords' class="form-control" value='{{ Input::old('keywords')}}'placeholder="words in keywords or description">
+     <span class="input-group-btn">
+       <button type="submit" class="btn btn-search">Search</button>
+     </span>
+    </div>
+  </div>
+{{ Form::close() }}
+
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -54,4 +65,5 @@
     @endforeach
   </tbody>
 </table>
+      {{ $files->links() }}
 @stop
