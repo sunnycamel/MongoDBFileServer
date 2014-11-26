@@ -28,10 +28,10 @@ class FileserverController extends Controller{
                              ->orWhere('description', 'like', '%' . $keyword . '%');
                    }
               }
-              $files = $temp->paginate(3);
+              $files = $temp->paginate(10);
          }
          else {
-              $files = File::paginate(3);
+              $files = File::paginate(10);
          }
 
          $files->appends(
