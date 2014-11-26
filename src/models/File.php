@@ -22,7 +22,7 @@ class File extends Eloquent {
 
      public function save(array $options = array())
      {
-          if($options['update']) {
+          if( isset($options['update']) and $options['update'] == TRUE ) {
                return parent::save();
           }
           else {
