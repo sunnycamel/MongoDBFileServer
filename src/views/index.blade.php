@@ -55,7 +55,7 @@
 	Form::hidden('_method', 'DELETE')
 	}}
 	{{
-   	Form::submit('删除', array('class' => 'btn btn-warning pull-right'))
+   	Form::submit('Delete', array('class' => 'btn btn-warning pull-right'))
 	}}
 	{{
 	Form::close()
