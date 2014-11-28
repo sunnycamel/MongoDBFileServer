@@ -23,7 +23,6 @@
     </tr>
   </thead>
   <tbody>
-<form>
     @foreach($files as $file)
     <tr>
       <td>{{ $file->_id }}</td>
@@ -37,5 +36,13 @@
   </tbody>
 </table>
       {{ $files->links() }}
-</form>
+
+<div id='result' style='display:none;'></div>
+<script>
+  function onselect() {
+      $('#result').text($( "input[type=radio]:checked" ).val());
+  }
+  $( "input[type=radio]" ).on( "click", onselect );
+</script>
+
 @stop
