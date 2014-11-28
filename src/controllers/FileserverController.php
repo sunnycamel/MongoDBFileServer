@@ -42,6 +42,37 @@ class FileserverController extends Controller{
          return View::make('fileserver::index')->with('files', $files);
     }
 
+    public function select()
+    {
+         $keywords = Input::get('keywords');
+         if($keywords) {
+              $ret = array_map('trim', explode(" ", $keywords));
+              $first = TRUE;
+              foreach($ret as $keyword) {
+                   if($first) {
+                        $temp = File::where('keywords', 'like', '%' . $keyword . '%')
+                             ->orWhere('description', 'like', '%' . $keyword . '%');
+                        $first = FALSE;
+                   }
+                   else {
+                        $temp = $temp->orWhere('keywords', 'like', '%' . $keyword . '%')
+                             ->orWhere('description', 'like', '%' . $keyword . '%');
+                   }
+              }
+              $files = $temp->paginate(10);
+         }
+         else {
+              $files = File::paginate(10);
+         }
+
+         $files->appends(
+               array(
+                    'keywords'  => Input::get('keywords'),
+                    ));
+
+         return View::make('fileserver::select')->with('files', $files);
+    }
+
     public function create()
     {
          return View::make('fileserver::create');

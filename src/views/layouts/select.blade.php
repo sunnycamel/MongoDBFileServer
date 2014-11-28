@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Order submit</title>
+    <title>Select File</title>
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
@@ -16,7 +16,7 @@
   <body>       
     <div class="container-fluid">
       <div class="row">
-	<div class="col-md-5 well">
+	<div class="col-md-6 well">
 	  @yield('content')
 	</div>      
       </div>
