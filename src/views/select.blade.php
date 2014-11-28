@@ -19,9 +19,11 @@
       <td>type</td>
       <td>keywords</td>
       <td>description</td>
+      <td>select</td>
     </tr>
   </thead>
   <tbody>
+<form>
     @foreach($files as $file)
     <tr>
       <td>{{ $file->_id }}</td>
@@ -29,9 +31,11 @@
       <td>{{ $file->filetype }}</td>
       <td>{{ $file->keywords }}</td>
       <td>{{ $file->description }}</td>
+      <td><input type='radio' name='selected' value='{{ $file->_id }}'></td>
     </tr>
     @endforeach
   </tbody>
 </table>
       {{ $files->links() }}
+</form>
 @stop
