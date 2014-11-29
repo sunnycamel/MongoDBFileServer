@@ -9,8 +9,8 @@
      </span>
     </div>
   </div>
-{{ Form::close() }}
-
+  {{ Form::close() }}
+  
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -20,12 +20,13 @@
       <td>keywords</td>
       <td>description</td>
       <td>select</td>
+      <td>preview</td>
     </tr>
   </thead>
   <tbody>
     @foreach($files as $file)
     <tr>
-      <td>{{ $file->_id }}</td>
+      <td><a class='preview'>{{ $file->_id }}</a></td>
       <td>{{ $file->filename }}</td>
       <td>{{ $file->filetype }}</td>
       <td>{{ $file->keywords }}</td>
@@ -37,6 +38,7 @@
 </table>
       {{ $files->links() }}
 
+<div id='preview_dialog' style='display:none;'><img src="" id='preview' width='300'></img></div>
 <div id='result' style='display:none;'></div>
 <script>
   function onselect() {
@@ -45,4 +47,20 @@
   $( "input[type=radio]" ).on( "click", onselect );
 </script>
 
+<script>
+    $( ".preview" ).hover(
+	function() {
+	    $('#preview').attr('src','/fileserver/image/' + $(this).text());
+	   
+	    $('#preview_dialog').css({
+		position:'absolute',
+		left: $(window).width() - 500,
+		top:  $(document).scrollTop() + 50
+	    }).show();
+	}, function() {
+	    $('#preview_dialog').hide();
+	}
+    );
+</script>
+    
 @stop

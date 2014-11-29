@@ -16,7 +16,7 @@
   <body>       
     <div class="container-fluid">
       <div class="row">
-	<div class="col-md-6 well">
+	<div class="col-md-12 well">
 	  @yield('content')
 	</div>      
       </div>
