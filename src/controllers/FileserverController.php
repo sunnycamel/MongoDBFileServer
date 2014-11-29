@@ -103,7 +103,7 @@ class FileserverController extends Controller{
                    Session::flash('message', 'Successfully stored file!');
               }
               else {
-                   Session::flash('message', 'Failed to stor file!');
+                   Session::flash('message', 'Failed to store file!');
               }
 
               return Redirect::to('/fileserver');
