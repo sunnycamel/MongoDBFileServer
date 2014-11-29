@@ -1,6 +1,6 @@
 @extends('fileserver::layouts.select')
 @section('content')
-{{ Form::open(array('url' => '/fileserver', 'method' => 'get', 'class'=>'form-inline')) }}
+{{ Form::open(array('url' => '/fileserver/select', 'method' => 'get', 'class'=>'form-inline')) }}
   <div class="form-group">
      <div class="input-group">
      <input type="text" name='keywords' class="form-control" value='{{ Input::old('keywords')}}'placeholder="words in keywords or description">
