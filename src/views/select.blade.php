@@ -20,7 +20,6 @@
       <td>keywords</td>
       <td>description</td>
       <td>select</td>
-      <td>preview</td>
     </tr>
   </thead>
   <tbody>
