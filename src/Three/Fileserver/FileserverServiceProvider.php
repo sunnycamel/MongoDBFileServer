@@ -38,6 +38,9 @@ class FileserverServiceProvider extends ServiceProvider {
 	public function register()
 	{
              $this->app->register('Jenssegers\Mongodb\MongodbServiceProvider');
+             $this->app['fileserver'] = $this->app->share(function($app) {
+                       return new FileServer;
+                  });
              $this->app->booting(function() {
                        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
                        $loader->alias('FileServer', 'Three\Fileserver\Facades\FileServer');

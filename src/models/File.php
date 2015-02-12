@@ -35,6 +35,7 @@ class File extends Eloquent {
                                               )
                     );
                if($id) {
+                    $this->_id = $id;
                     return TRUE;
                }
           }
