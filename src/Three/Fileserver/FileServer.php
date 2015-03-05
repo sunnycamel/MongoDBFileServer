@@ -13,8 +13,12 @@ class FileServer {
           $file->description = $description;
           $file->filedata    = \File::get($input_file->getRealPath());
           $ret = $file->save();
-
-          return $ret;
+          if($ret) {
+               return $file->_id;
+          }
+          else {
+               return NULL;
+          }
      }
      
 }
