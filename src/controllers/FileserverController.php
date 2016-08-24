@@ -1,19 +1,19 @@
 <?php  namespace Three\Fileserver\Controllers; 
 
-use Controller;
 use View;
 use Redirect;
-use Input;
 use Validator;
 use Session;
 use Response;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller as Controller;
 use Three\Fileserver\Models\File;
 
 class FileserverController extends Controller{
 
-    public function index()
+    public function index(Request $request)
     {
-         $keywords = Input::get('keywords');
+         $keywords = $request->input('keywords');
          if($keywords) {
               $ret = array_map('trim', explode(" ", $keywords));
               $first = TRUE;
@@ -36,15 +36,15 @@ class FileserverController extends Controller{
 
          $files->appends(
                array(
-                    'keywords'  => Input::get('keywords'),
+                    'keywords'  => $keywords,
                     ));
 
          return View::make('fileserver::index')->with('files', $files);
     }
 
-    public function select()
+    public function select(Request $request)
     {
-         $keywords = Input::get('keywords');
+         $keywords = $request->input('keywords');
          if($keywords) {
               $ret = array_map('trim', explode(" ", $keywords));
               $first = TRUE;
@@ -67,7 +67,7 @@ class FileserverController extends Controller{
 
          $files->appends(
                array(
-                    'keywords'  => Input::get('keywords'),
+                    'keywords'  => $keywords,
                     ));
 
          return View::make('fileserver::select')->with('files', $files);
@@ -78,13 +78,13 @@ class FileserverController extends Controller{
          return View::make('fileserver::create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
          $rules = array(
               'file'    => 'required',
               'filetype' => 'required',
               );
-         $validator = Validator::make(Input::all(), $rules);
+         $validator = Validator::make($request->all(), $rules);
 
          if ($validator->fails()) {
               return Redirect::to('/fileserver/create')
@@ -92,11 +92,11 @@ class FileserverController extends Controller{
                    ->withInput();
          } else {
               $file = new File;
-              $file->filename    = Input::file('file')->getClientOriginalName();
-              $file->filetype    = Input::get('filetype')==0 ? 'image' : 'file';
-              $file->keywords    = Input::get('keywords');
-              $file->description = Input::get('description');
-              $file->filedata    = \File::get(Input::file('file')->getRealPath());
+              $file->filename    = $request->file('file')->getClientOriginalName();
+              $file->filetype    = $request->get('filetype')==0 ? 'image' : 'file';
+              $file->keywords    = $request->get('keywords');
+              $file->description = $request->get('description');
+              $file->filedata    = \File::get($request->file('file')->getRealPath());
 
               $ret = $file->save();
               if($ret) {
@@ -124,12 +124,12 @@ class FileserverController extends Controller{
          return View::make('fileserver::edit')->with('file', $file);
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
          $rules = array(
               'filetype' => 'required',
               );
-         $validator = Validator::make(Input::all(), $rules);
+         $validator = Validator::make($request->all(), $rules);
 
          if ($validator->fails()) {
               return Redirect::to('/fileserver/' . '$id' .'/edit')
@@ -137,9 +137,9 @@ class FileserverController extends Controller{
                    ->withInput();
          } else {
               $file = File::find($id);
-              $file->filetype    = Input::get('filetype')==0 ? 'image' : 'file';
-              $file->keywords    = Input::get('keywords');
-              $file->description = Input::get('description');
+              $file->filetype    = $request->get('filetype')==0 ? 'image' : 'file';
+              $file->keywords    = $request->get('keywords');
+              $file->description = $request->get('description');
 
               $ret = $file->save(array('update' => TRUE));
               if($ret) {

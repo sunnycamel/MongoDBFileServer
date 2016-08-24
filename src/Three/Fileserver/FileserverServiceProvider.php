@@ -19,15 +19,8 @@ class FileserverServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-             $this->package('three/fileserver');
- 
-            // Add my database configurations to the default set of configurations                        
-             $this->app['config']['database.connections'] = array_merge(
-                  $this->app['config']['database.connections'],
-                  Config::get('fileserver::database.connections')
-                  );
-
-             include __DIR__.'/../../routes.php';
+         include __DIR__.'/../../routes.php';
+         $this->loadViewsFrom(__DIR__.'/../../views', 'fileserver');
 	}
 
 	/**
@@ -41,20 +34,14 @@ class FileserverServiceProvider extends ServiceProvider {
              $this->app['fileserver'] = $this->app->share(function($app) {
                        return new FileServer;
                   });
-             $this->app->booting(function() {
-                       $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-                       $loader->alias('FileServer', 'Three\Fileserver\Facades\FileServer');
-                  });
+
+             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+             $loader->alias('FileServer', 'Three\Fileserver\Facades\FileServer');
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
 	public function provides()
 	{
-		return array();
+         return [FileServer::class];
 	}
 
 }

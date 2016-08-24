@@ -11,7 +11,7 @@
   @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
   @endif
-  {{ HTML::ul($errors->all()) }}
+  {{ Html::ul($errors->all()) }}
 
 {{ Form::open(array('url' => '/fileserver', 'files' => true)) }}
 
@@ -22,17 +22,17 @@
 
   <div class="form-group">
     {{ Form::label('filetype', 'File type') }}
-    {{ Form::select('filetype', array('Image', "File"), Input::old('filetype'), array('class' => 'form-control')) }}
+    {{ Form::select('filetype', array('Image', "File"), Request::old('filetype'), array('class' => 'form-control')) }}
   </div> 
 
   <div class="form-group">
     {{ Form::label('keywords', 'Key Words') }}
-    {{ Form::text('keywords', Input::old('keywords'), array('class' => 'form-control')) }}
+    {{ Form::text('keywords', Request::old('keywords'), array('class' => 'form-control')) }}
   </div>
   
   <div class="form-group">
     {{ Form::label('description', 'Description') }}
-    {{ Form::textarea('description', Input::old('description'), array('class' => 'form-control')) }}
+    {{ Form::textarea('description', Request::old('description'), array('class' => 'form-control')) }}
   </div>
 
   {{ Form::submit('Submit', array('class' => 'btn btn-default')) }}

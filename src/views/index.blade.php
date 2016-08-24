@@ -8,14 +8,14 @@
 @stop
 @section('content')
   @if (Session::has('message'))
-	<div class="alert alert-info">{{ Session::get('message') }}</div>
+  <div class="alert alert-info">{{ Session::get('message') }}</div>
   @endif
-  {{ HTML::ul($errors->all()) }}
+  {{ Html::ul($errors->all()) }}  
 
 {{ Form::open(array('url' => '/fileserver', 'method' => 'get', 'class'=>'form-inline')) }}
   <div class="form-group">
      <div class="input-group">
-     <input type="text" name='keywords' class="form-control" value='{{ Input::old('keywords')}}'placeholder="words in keywords or description">
+     <input type="text" name='keywords' class="form-control" value='{{ Request::old('keywords')}}'placeholder="words in keywords or description">
      <span class="input-group-btn">
        <button type="submit" class="btn btn-search">Search</button>
      </span>

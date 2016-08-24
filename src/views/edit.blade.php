@@ -11,7 +11,7 @@
   @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
   @endif
-  {{ HTML::ul($errors->all()) }}
+  {{ Html::ul($errors->all()) }}
 
 <table class="table table-striped table-bordered">
   <tr>
